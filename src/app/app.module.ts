@@ -11,10 +11,36 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { COMPONENT_MAP } from './component-registry';
+import { CompHostDirective } from './comp-host.directive';
+import { CardAComponent } from './cards/card-a.component';
+import { CardBComponent } from './cards/card-b.component';
+import { CardCComponent } from './cards/card-c.component';
+
+// define the mapping of string id's to components
+const componentMap = [
+  {
+    id: 'card-a', // this ID is matched against the FAKE_SERVER_DATA to retrieve the right component
+    component: CardAComponent
+  },
+  {
+    id: 'card-b',
+    component: CardBComponent
+  },
+  {
+    id: 'card-c',
+    component: CardCComponent
+  }
+]
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CompHostDirective,
+    CardAComponent,
+    CardBComponent,
+    CardCComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +54,10 @@ import { MatButtonModule } from '@angular/material/button';
     MatCheckboxModule,
     MatCardModule,
   ],
-  providers: [],
+  providers: [
+    {provide: COMPONENT_MAP, useValue: componentMap}
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
